@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+      - ./models:/app/models
+    environment:
+      - ENVIRONMENT=development
+    command: uvicorn src.api.main:app --host 0.0.0.0 --reload
+  
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    command: npm run dev
+  
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"

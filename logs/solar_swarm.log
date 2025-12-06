@@ -1,0 +1,468 @@
+2025-12-02 20:40:23 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-02 20:40:23 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-02 20:40:23 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-02 20:40:23 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-02 20:40:23 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-02 20:41:22 - solar_swarm - ERROR - main.py:171 - ❌ Error: No module named 'gym'
+Traceback (most recent call last):
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/main.py", line 166, in <module>
+    main()
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/main.py", line 64, in main
+    from src.api.main import app
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/api/__init__.py", line 6, in <module>
+    from .main import app
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/api/main.py", line 12, in <module>
+    from .routes import router
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/api/routes.py", line 19, in <module>
+    from ..agents.base_agent import SwarmSimulator
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/agents/__init__.py", line 7, in <module>
+    from .rl_agent import SolarSwarmEnv, train_rl_agents
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/agents/rl_agent.py", line 5, in <module>
+    import gym
+ModuleNotFoundError: No module named 'gym'
+2025-12-02 23:33:43 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-02 23:33:43 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-02 23:33:43 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-02 23:33:43 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-02 23:33:43 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-02 23:33:43 - solar_swarm - ERROR - main.py:171 - ❌ Error: No module named 'torch'
+Traceback (most recent call last):
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/main.py", line 166, in <module>
+    main()
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/main.py", line 64, in main
+    from src.api.main import app
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/api/__init__.py", line 6, in <module>
+    from .main import app
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/api/main.py", line 12, in <module>
+    from .routes import router
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/api/routes.py", line 19, in <module>
+    from ..agents.base_agent import SwarmSimulator
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/agents/__init__.py", line 7, in <module>
+    from .rl_agent import SolarSwarmEnv, train_rl_agents
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/agents/rl_agent.py", line 2, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+2025-12-02 23:35:35 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-02 23:35:35 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-02 23:35:35 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-02 23:35:35 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-02 23:35:35 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-02 23:35:48 - solar_swarm - ERROR - main.py:171 - ❌ Error: No module named 'gym'
+Traceback (most recent call last):
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/main.py", line 166, in <module>
+    main()
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/main.py", line 64, in main
+    from src.api.main import app
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/api/__init__.py", line 6, in <module>
+    from .main import app
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/api/main.py", line 12, in <module>
+    from .routes import router
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/api/routes.py", line 19, in <module>
+    from ..agents.base_agent import SwarmSimulator
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/agents/__init__.py", line 7, in <module>
+    from .rl_agent import SolarSwarmEnv, train_rl_agents
+  File "/Users/kilanimoemen/Desktop/solar-swarm-intelligence/src/agents/rl_agent.py", line 5, in <module>
+    import gym
+ModuleNotFoundError: No module named 'gym'
+2025-12-02 23:37:00 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-02 23:37:00 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-02 23:37:00 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-02 23:37:00 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-02 23:37:00 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-02 23:37:16 - solar_swarm - INFO - main.py:24 - 🚀 Starting Solar Swarm Intelligence API
+2025-12-02 23:37:16 - solar_swarm - INFO - main.py:25 -    Agents: 50
+2025-12-02 23:37:16 - solar_swarm - INFO - main.py:26 -    Battery: 10.0 kWh
+2025-12-02 23:37:40 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:37:40 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:37:40 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:37:41 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:37:41 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:37:41 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:37:41 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:37:47 - solar_swarm - INFO - routes.py:59 - Starting simulation with 50 agents for 24 hours
+2025-12-02 23:37:47 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:37:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:37:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:37:58 - solar_swarm - INFO - routes.py:238 - Running scenario: custom
+2025-12-02 23:37:58 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:00 - solar_swarm - INFO - routes.py:238 - Running scenario: custom
+2025-12-02 23:38:00 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:16 - solar_swarm - INFO - routes.py:238 - Running scenario: peak_demand
+2025-12-02 23:38:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:29 - solar_swarm - INFO - routes.py:238 - Running scenario: night_mode
+2025-12-02 23:38:29 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:31 - solar_swarm - INFO - routes.py:238 - Running scenario: custom
+2025-12-02 23:38:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:35 - solar_swarm - INFO - routes.py:135 - Simulation completed: 24 hours
+2025-12-02 23:38:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:41 - solar_swarm - INFO - routes.py:238 - Running scenario: cloudy_day
+2025-12-02 23:38:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:41 - solar_swarm - INFO - routes.py:238 - Running scenario: cloudy_day
+2025-12-02 23:38:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:42 - solar_swarm - INFO - routes.py:238 - Running scenario: custom
+2025-12-02 23:38:42 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:49 - solar_swarm - INFO - routes.py:59 - Starting simulation with 50 agents for 24 hours
+2025-12-02 23:38:49 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:38:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:39:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:39:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:39:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:39:37 - solar_swarm - INFO - routes.py:135 - Simulation completed: 24 hours
+2025-12-02 23:39:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:39:43 - solar_swarm - INFO - routes.py:238 - Running scenario: custom
+2025-12-02 23:39:43 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:39:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:39:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:39:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:21 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:40:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:11 - solar_swarm - INFO - routes.py:238 - Running scenario: custom
+2025-12-02 23:41:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:20 - solar_swarm - INFO - routes.py:238 - Running scenario: custom
+2025-12-02 23:41:20 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:21 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:41:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:06 - solar_swarm - INFO - routes.py:238 - Running scenario: night_mode
+2025-12-02 23:42:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:07 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:08 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:09 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:09 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:10 - solar_swarm - INFO - routes.py:59 - Starting simulation with 50 agents for 24 hours
+2025-12-02 23:42:10 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:16 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:42:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:16 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:42:16 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:42:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:16 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:42:21 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:42:58 - solar_swarm - INFO - routes.py:135 - Simulation completed: 24 hours
+2025-12-02 23:43:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:43:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:43:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:43:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:43:21 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:43:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:43:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:43:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:43:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:43:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:43:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:43:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:44:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:44:04 - solar_swarm - INFO - routes.py:59 - Starting simulation with 50 agents for 24 hours
+2025-12-02 23:44:04 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:44:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:44:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:44:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:44:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:44:52 - solar_swarm - INFO - routes.py:135 - Simulation completed: 24 hours
+2025-12-02 23:44:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:05 - solar_swarm - INFO - routes.py:238 - Running scenario: custom
+2025-12-02 23:45:05 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:21 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:55 - solar_swarm - INFO - routes.py:238 - Running scenario: custom
+2025-12-02 23:45:55 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:45:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:21 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:46:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:21 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:47:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:21 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:57 - solar_swarm - INFO - routes.py:238 - Running scenario: panel_failure
+2025-12-02 23:48:57 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:48:58 - solar_swarm - INFO - routes.py:238 - Running scenario: peak_demand
+2025-12-02 23:48:58 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:00 - solar_swarm - INFO - routes.py:238 - Running scenario: cloudy_day
+2025-12-02 23:49:00 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:00 - solar_swarm - INFO - routes.py:238 - Running scenario: grid_outage
+2025-12-02 23:49:00 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:01 - solar_swarm - INFO - routes.py:238 - Running scenario: night_mode
+2025-12-02 23:49:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:02 - solar_swarm - INFO - routes.py:238 - Running scenario: heatwave
+2025-12-02 23:49:02 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:21 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:49:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:21 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:50:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:11 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:16 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:21 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:31 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:36 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:41 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:51 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:51:56 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:01 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:06 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:10 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:26 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:26 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:26 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:26 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:26 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:39 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:39 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:39 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:39 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:39 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:39 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:46 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:46 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:46 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:47 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:47 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:47 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:47 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:47 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:47 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:47 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:47 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:47 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:47 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:47 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:47 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:47 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:47 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:47 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:47 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:48 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:48 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:48 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:48 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:48 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:48 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:48 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:49 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:49 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:49 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:49 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:49 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:49 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:49 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:52:49 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:52:49 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:52:49 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:54:20 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:54:20 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:54:20 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:54:20 - solar_swarm - ERROR - main.py:102 - Internal server error: division by zero
+2025-12-02 23:54:20 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:54:20 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:54:58 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-02 23:54:58 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-02 23:54:58 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-02 23:54:58 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-02 23:54:58 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-02 23:55:10 - solar_swarm - INFO - main.py:168 - 
+⚠️  Interrupted by user
+2025-12-02 23:56:05 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-02 23:56:05 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-02 23:56:05 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-02 23:56:05 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-02 23:56:05 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-02 23:56:15 - solar_swarm - INFO - main.py:24 - 🚀 Starting Solar Swarm Intelligence API
+2025-12-02 23:56:15 - solar_swarm - INFO - main.py:25 -    Agents: 50
+2025-12-02 23:56:15 - solar_swarm - INFO - main.py:26 -    Battery: 10.0 kWh
+2025-12-02 23:57:13 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:13 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-02 23:57:13 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-02 23:57:15 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:17 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:17 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-02 23:57:17 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-02 23:57:17 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:17 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:17 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:17 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:18 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:19 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:19 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-02 23:57:19 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-02 23:57:19 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:19 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:19 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:19 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:24 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:37 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:37 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-02 23:57:37 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-02 23:57:37 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:37 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:37 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:37 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:44 - solar_swarm - INFO - routes.py:274 - Running scenario: custom
+2025-12-02 23:57:49 - solar_swarm - INFO - routes.py:274 - Running scenario: custom
+2025-12-02 23:57:52 - solar_swarm - INFO - routes.py:59 - Starting simulation with 50 agents for 24 hours
+2025-12-02 23:57:52 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:54 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-02 23:57:55 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-02 23:58:40 - solar_swarm - INFO - routes.py:146 - Simulation completed: 24 hours
+2025-12-03 00:03:26 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:03:26 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:03:26 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:03:28 - solar_swarm - INFO - routes.py:274 - Running scenario: custom
+2025-12-03 00:03:30 - solar_swarm - INFO - routes.py:274 - Running scenario: custom
+2025-12-03 00:03:32 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:04:16 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:04:16 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-03 00:04:16 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-03 00:04:50 - solar_swarm - INFO - routes.py:274 - Running scenario: custom
+2025-12-03 00:15:49 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:15:49 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:15:49 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-03 00:15:49 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-03 00:17:11 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:17:11 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:17:11 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:17:11 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:17:12 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:17:15 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:17:15 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:17:15 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:17:15 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:17:15 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:17:16 - solar_swarm - INFO - routes.py:274 - Running scenario: custom
+2025-12-03 00:17:34 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:17:34 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:17:34 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:17:34 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:17:35 - solar_swarm - INFO - routes.py:274 - Running scenario: custom
+2025-12-03 00:17:37 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:35:14 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-03 00:35:14 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-03 00:35:14 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
