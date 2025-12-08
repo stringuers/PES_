@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Bar } from 'recharts'
+import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ComposedChart, Bar, BarChart, Cell } from 'recharts'
 
 export default function PredictionVsActual({ forecast = [], actualData = [] }) {
   const [predictionAccuracy, setPredictionAccuracy] = useState(87.5)

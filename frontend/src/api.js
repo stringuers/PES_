@@ -74,3 +74,21 @@ export function connectWS(onMessage) {
   ws.onclose = () => console.log('WebSocket disconnected')
   return ws
 }
+
+export async function getPredictiveInsights() {
+  const res = await fetch(`${API_BASE}/api/v1/insights/predictive`)
+  if (!res.ok) throw new Error(`Insights failed: ${res.status}`)
+  return res.json()
+}
+
+export async function getAchievements() {
+  const res = await fetch(`${API_BASE}/api/v1/gamification/achievements`)
+  if (!res.ok) throw new Error(`Achievements failed: ${res.status}`)
+  return res.json()
+}
+
+export async function getAnalyticsTrends() {
+  const res = await fetch(`${API_BASE}/api/v1/analytics/trends`)
+  if (!res.ok) throw new Error(`Trends failed: ${res.status}`)
+  return res.json()
+}

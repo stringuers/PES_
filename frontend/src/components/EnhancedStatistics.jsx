@@ -1,7 +1,10 @@
 import React from 'react'
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts'
 
-export default function EnhancedStatistics({ metrics = {}, history = [] }) {
+export default function EnhancedStatistics({ metrics = null, history = [] }) {
+  // Safely handle null metrics
+  const safeMetrics = metrics || {}
+  
   // Energy distribution
   const energyDistribution = [
     { name: 'Solar Direct', value: 65, color: '#10b981' },
@@ -19,17 +22,17 @@ export default function EnhancedStatistics({ metrics = {}, history = [] }) {
   
   // Environmental impact
   const environmentalData = [
-    { metric: 'CO₂ Avoided', value: 156, unit: 'kg', color: '#10b981' },
-    { metric: 'Trees Equivalent', value: 7.4, unit: 'trees', color: '#3b82f6' },
-    { metric: 'Grid Reduction', value: 35, unit: '%', color: '#fbbf24' }
+    { metric: 'CO₂ Avoided', value: safeMetrics.co2_avoided_kg || 156, unit: 'kg', color: '#10b981' },
+    { metric: 'Trees Equivalent', value: safeMetrics.trees_equivalent || 7.4, unit: 'trees', color: '#3b82f6' },
+    { metric: 'Grid Reduction', value: 100 - (safeMetrics.grid_dependency_pct || 65), unit: '%', color: '#fbbf24' }
   ]
   
   // Performance trends
   const trendData = Array.from({ length: 7 }, (_, i) => ({
     day: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i],
-    solar: 85 + Math.random() * 10,
-    efficiency: 78 + Math.random() * 15,
-    savings: 250 + Math.random() * 50
+    solar: safeMetrics.solar_utilization_pct || 85 + Math.random() * 10,
+    efficiency: safeMetrics.self_sufficiency_pct || 78 + Math.random() * 15,
+    savings: safeMetrics.cost_savings_daily || 250 + Math.random() * 50
   }))
   
   return (
@@ -38,22 +41,22 @@ export default function EnhancedStatistics({ metrics = {}, history = [] }) {
       <div className="grid grid-cols-4 gap-4">
         <div className="bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-lg p-4 border border-green-500/30">
           <div className="text-sm text-green-400 mb-1">Solar Utilization</div>
-          <div className="text-3xl font-bold text-white">{metrics.solar_utilization_pct?.toFixed(1) || 87.0}%</div>
+          <div className="text-3xl font-bold text-white">{(safeMetrics.solar_utilization_pct || 87.0).toFixed(1)}%</div>
           <div className="text-xs text-green-400 mt-1">↑ +12% vs baseline</div>
         </div>
         <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-lg p-4 border border-blue-500/30">
           <div className="text-sm text-blue-400 mb-1">Self-Sufficiency</div>
-          <div className="text-3xl font-bold text-white">{metrics.self_sufficiency_pct?.toFixed(1) || 78.0}%</div>
+          <div className="text-3xl font-bold text-white">{(safeMetrics.self_sufficiency_pct || 78.0).toFixed(1)}%</div>
           <div className="text-xs text-blue-400 mt-1">↑ +28% improvement</div>
         </div>
         <div className="bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 rounded-lg p-4 border border-yellow-500/30">
           <div className="text-sm text-yellow-400 mb-1">Daily Savings</div>
-          <div className="text-3xl font-bold text-white">${metrics.cost_savings_daily?.toFixed(0) || 284}</div>
+          <div className="text-3xl font-bold text-white">${(safeMetrics.cost_savings_daily || 284).toFixed(0)}</div>
           <div className="text-xs text-yellow-400 mt-1">$8,520/month projected</div>
         </div>
         <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-lg p-4 border border-purple-500/30">
           <div className="text-sm text-purple-400 mb-1">CO₂ Avoided</div>
-          <div className="text-3xl font-bold text-white">{metrics.co2_avoided_kg?.toFixed(0) || 156} kg</div>
+          <div className="text-3xl font-bold text-white">{(safeMetrics.co2_avoided_kg || 156).toFixed(0)} kg</div>
           <div className="text-xs text-purple-400 mt-1">4.7 tons/month</div>
         </div>
       </div>

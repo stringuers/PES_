@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   getStatus,
   startSimulation,
@@ -8,10 +9,20 @@ import {
   getForecast,
   connectWS
 } from './api'
-import LiveCommunityMap from './components/LiveCommunityMap'
-import CommunityMap3D from './components/CommunityMap3D'
-import RealTimeMetrics from './components/RealTimeMetrics'
-import SolarForecast from './components/SolarForecast'
+
+// Enhanced Components
+import EnhancedHeader from './components/EnhancedHeader'
+import ModernNavigation from './components/ModernNavigation'
+import EnhancedCommunityMap from './components/EnhancedCommunityMap'
+import AdvancedMetrics from './components/AdvancedMetrics'
+import EnhancedForecast from './components/EnhancedForecast'
+import PredictiveInsights from './components/PredictiveInsights'
+import GamificationPanel from './components/GamificationPanel'
+import RealTimeEnergyFlow from './components/RealTimeEnergyFlow'
+import GlassCard from './components/GlassCard'
+import ThemeToggle from './components/ThemeToggle'
+
+// Existing components (keeping for compatibility)
 import SwarmMonitor from './components/SwarmMonitor'
 import AnomalyDetection from './components/AnomalyDetection'
 import ScenarioSimulator from './components/ScenarioSimulator'
@@ -29,10 +40,9 @@ export default function App() {
   const [metrics, setMetrics] = useState(null)
   const [forecast, setForecast] = useState(null)
   const [selectedHouse, setSelectedHouse] = useState(null)
-  const [activeTab, setActiveTab] = useState('dashboard') // 'dashboard', 'analytics', 'ai'
+  const [activeTab, setActiveTab] = useState('dashboard')
   const [energyFlows, setEnergyFlows] = useState([])
   const [agentDecisions, setAgentDecisions] = useState([])
-  const [use3D, setUse3D] = useState(true)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -41,9 +51,7 @@ export default function App() {
     let ws
     try {
       ws = connectWS((data) => {
-        // Handle real-time updates from WebSocket
         if (data.houses) {
-          // Convert houses to agents format
           setAgents(data.houses.map(h => ({
             id: h.id,
             production: h.production || 0,
@@ -65,21 +73,14 @@ export default function App() {
             solar_utilization_pct: data.metrics.solarUsage || 0,
             self_sufficiency_pct: data.metrics.batteryLevel || 0,
             cost_savings_daily: data.metrics.costSavings || 0,
-            co2_avoided_kg: data.metrics.co2Saved || 0
+            co2_avoided_kg: data.metrics.co2Saved || 0,
+            energy_shared_kwh: data.metrics.totalShared || 0,
+            grid_dependency_pct: 100 - (data.metrics.solarUsage || 0)
           })
         }
         if (data.agentMessages || data.agent_decisions) {
           setAgentDecisions(data.agentMessages || data.agent_decisions || [])
         }
-        if (data.decisionStats) {
-          // Update decision statistics if available
-          console.log('Decision stats:', data.decisionStats)
-        }
-        if (data.ai_metrics) {
-          // Update AI metrics if available
-          console.log('AI metrics:', data.ai_metrics)
-        }
-        // Update status if provided
         if (data.hour !== undefined) {
           setStatus(prev => ({
             ...prev,
@@ -100,7 +101,7 @@ export default function App() {
   // Initial data load
   useEffect(() => {
     refreshData()
-    const interval = setInterval(refreshData, 5000) // Refresh every 5 seconds
+    const interval = setInterval(refreshData, 5000)
     return () => clearInterval(interval)
   }, [])
 
@@ -116,11 +117,10 @@ export default function App() {
       if (statusData) setStatus(statusData)
       if (agentsData && Array.isArray(agentsData)) setAgents(agentsData)
       if (metricsData) setMetrics(metricsData)
-      if (forecastData) setForecast(forecastData)
+      if (forecastData) setForecast(forecastData.forecast || forecastData)
       setError(null)
     } catch (e) {
       console.error('Data load error:', e)
-      // Don't set error on initial load if backend isn't running
       if (status || agents.length > 0) {
         setError('Failed to load data. Is the backend running?')
       }
@@ -158,209 +158,211 @@ export default function App() {
     setSelectedHouse(house)
   }
 
-  const handleScenarioRun = (result) => {
-    console.log('Scenario result:', result)
-    refreshData()
-  }
-
   return (
-    <div className="min-h-screen bg-slate-900 text-white">
-      {/* Header */}
-      <header className="bg-slate-800 border-b border-slate-700 px-6 py-4">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold text-white">🌞 Solar Swarm Intelligence</h1>
-            <p className="text-sm text-slate-400">Multi-Agent Reinforcement Learning for Community Solar Optimization</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={refreshData}
-              disabled={loading}
-              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded text-sm transition-colors disabled:opacity-50"
-            >
-              Refresh
-            </button>
-            <button
-              onClick={handleStart}
-              disabled={loading || status?.status === 'running'}
-              className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded text-sm font-semibold transition-colors disabled:opacity-50"
-            >
-              Start Simulation
-            </button>
-            <button
-              onClick={handleStop}
-              disabled={loading || status?.status !== 'running'}
-              className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded text-sm font-semibold transition-colors disabled:opacity-50"
-            >
-              Stop
-            </button>
-            {status && (
-              <div className="px-3 py-1 bg-slate-700 rounded text-xs">
-                Status: <span className={status.status === 'running' ? 'text-green-400' : 'text-slate-400'}>{status.status}</span>
-              </div>
-            )}
-          </div>
-        </div>
-      </header>
-
-      {error && (
-        <div className="mx-6 mt-4 bg-red-500/20 border border-red-500/50 rounded-lg p-4 text-red-400">
-          {error}
-        </div>
-      )}
-
-      {/* Tab Navigation */}
-      <div className="px-6 pt-4 border-b border-slate-700">
-        <div className="flex gap-4">
-          <button
-            onClick={() => setActiveTab('dashboard')}
-            className={`px-4 py-2 font-semibold transition-colors ${
-              activeTab === 'dashboard'
-                ? 'text-blue-400 border-b-2 border-blue-400'
-                : 'text-slate-400 hover:text-slate-300'
-            }`}
-          >
-            🏠 Dashboard
-          </button>
-          <button
-            onClick={() => setActiveTab('ai')}
-            className={`px-4 py-2 font-semibold transition-colors ${
-              activeTab === 'ai'
-                ? 'text-blue-400 border-b-2 border-blue-400'
-                : 'text-slate-400 hover:text-slate-300'
-            }`}
-          >
-            🤖 AI Intelligence
-          </button>
-          <button
-            onClick={() => setActiveTab('analytics')}
-            className={`px-4 py-2 font-semibold transition-colors ${
-              activeTab === 'analytics'
-                ? 'text-blue-400 border-b-2 border-blue-400'
-                : 'text-slate-400 hover:text-slate-300'
-            }`}
-          >
-            📈 Analytics
-          </button>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-20 left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, 50, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{ duration: 20, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, -100, 0],
+            y: [0, -50, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{ duration: 25, repeat: Infinity }}
+        />
       </div>
 
+      {/* Header */}
+      <EnhancedHeader
+        status={status}
+        onStart={handleStart}
+        onStop={handleStop}
+        onRefresh={refreshData}
+        loading={loading}
+      />
+
+      {/* Error Banner */}
+      <AnimatePresence>
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="mx-6 mt-4 glass border border-red-500/50 rounded-lg p-4 text-red-400"
+          >
+            {error}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Navigation */}
+      <ModernNavigation activeTab={activeTab} onTabChange={setActiveTab} />
+
       {/* Main Content */}
-      {activeTab === 'dashboard' ? (
-        <div className="p-6 space-y-4">
-          {/* Scenario Simulator - Top */}
-          <ScenarioSimulator onScenarioRun={handleScenarioRun} />
-          
-          {loading && (
-            <div className="text-center py-4 text-slate-400">
-              Loading...
-            </div>
+      <div className="relative z-10">
+        <AnimatePresence mode="wait">
+          {activeTab === 'dashboard' && (
+            <motion.div
+              key="dashboard"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="p-6 space-y-6"
+            >
+              {/* Top Row: Forecast & Quick Stats */}
+              <div className="grid grid-cols-12 gap-6">
+                <div className="col-span-12 md:col-span-4">
+                  <EnhancedForecast forecast={forecast} />
+                </div>
+                <div className="col-span-12 md:col-span-8">
+                  <AdvancedMetrics metrics={metrics} forecast={forecast} />
+                </div>
+              </div>
+
+              {/* Main Visualization */}
+              <GlassCard className="p-0 overflow-hidden">
+                <div className="p-6 border-b border-white/10">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-2xl font-bold gradient-text">
+                      🌍 Community Energy Network
+                    </h2>
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 text-sm">
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span className="text-slate-400">Surplus</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm">
+                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <span className="text-slate-400">Balanced</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm">
+                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                        <span className="text-slate-400">Deficit</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <EnhancedCommunityMap
+                  agents={agents}
+                  energyFlows={energyFlows}
+                  onHouseClick={handleHouseClick}
+                />
+              </GlassCard>
+
+              {/* Predictive Insights */}
+              <PredictiveInsights metrics={metrics} forecast={forecast} />
+
+              {/* Bottom Row: Monitoring & Scenarios */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <GlassCard>
+                  <SwarmMonitor agents={agents} />
+                </GlassCard>
+                <GlassCard>
+                  <ScenarioSimulator onScenarioRun={refreshData} />
+                </GlassCard>
+              </div>
+            </motion.div>
           )}
 
-          {/* Main Grid Layout */}
-          <div className="grid grid-cols-12 gap-4">
-            {/* Left Column - Forecasting */}
-            <div className="col-span-3">
-              <SolarForecast forecast={forecast?.forecast || forecast || []} />
-            </div>
+          {activeTab === 'intelligence' && (
+            <motion.div
+              key="intelligence"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="p-6 space-y-6"
+            >
+              <GlassCard className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border-blue-500/30">
+                <h2 className="text-3xl font-bold text-white mb-2">
+                  🤖 AI-Powered Solar Swarm Intelligence
+                </h2>
+                <p className="text-slate-300">
+                  Real-time reinforcement learning agents optimizing energy distribution
+                </p>
+              </GlassCard>
 
-            {/* Center Column - Live Map (3D or 2D) */}
-            <div className="col-span-6">
-              <div className="mb-2 flex justify-end">
-                <button
-                  onClick={() => setUse3D(!use3D)}
-                  className="px-3 py-1 bg-slate-700 hover:bg-slate-600 rounded text-xs text-white transition-colors"
-                >
-                  {use3D ? 'Switch to 2D' : 'Switch to 3D'}
-                </button>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <AIDecisionFlow agentDecisions={agentDecisions} agents={agents} />
+                <AILearningProgress agents={agents} />
+                <PredictionVsActual forecast={forecast?.forecast || []} />
               </div>
-              {use3D ? (
-                <CommunityMap3D
-                  agents={agents}
-                  onHouseClick={handleHouseClick}
-                  energyFlows={energyFlows}
-                />
-              ) : (
-                <LiveCommunityMap
-                  agents={agents}
-                  onHouseClick={handleHouseClick}
-                  energyFlows={energyFlows}
-                />
-              )}
-            </div>
 
-            {/* Right Column - Metrics */}
-            <div className="col-span-3">
-              <RealTimeMetrics metrics={metrics} />
-            </div>
-          </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <AgentNetwork agents={agents} energyFlows={energyFlows} />
+                <EnhancedStatistics metrics={metrics} />
+              </div>
 
-          {/* Bottom Row */}
-          <div className="grid grid-cols-2 gap-4">
-            <SwarmMonitor agents={agents} />
-            <AnomalyDetection agents={agents} />
-          </div>
-        </div>
-      ) : activeTab === 'ai' ? (
-        <div className="p-6 space-y-4">
-          {/* AI Header */}
-          <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-lg p-4 border border-blue-500/30">
-            <h2 className="text-2xl font-bold text-white mb-2">🤖 AI-Powered Solar Swarm Intelligence</h2>
-            <p className="text-slate-300 text-sm">
-              Real-time reinforcement learning agents optimizing energy distribution through multi-agent coordination
-            </p>
-          </div>
+              <RealTimeEnergyFlow energyFlows={energyFlows} agents={agents} />
+            </motion.div>
+          )}
 
-          {/* Top Row - AI Core Features */}
-          <div className="grid grid-cols-3 gap-4">
-            <AIDecisionFlow agentDecisions={agentDecisions} agents={agents} />
-            <AILearningProgress agents={agents} />
-            <PredictionVsActual forecast={forecast?.forecast || []} />
-          </div>
+          {activeTab === 'analytics' && (
+            <motion.div
+              key="analytics"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="p-6"
+            >
+              <HistoricalAnalytics />
+            </motion.div>
+          )}
 
-          {/* Middle Row - Network & Statistics */}
-          <div className="grid grid-cols-2 gap-4">
-            <AgentNetwork agents={agents} energyFlows={energyFlows} />
-            <EnhancedStatistics metrics={metrics} />
-          </div>
-
-          {/* Bottom - Enhanced Metrics */}
-          <div className="grid grid-cols-4 gap-4">
-            <div className="bg-slate-800 rounded-lg border border-slate-700 p-4">
-              <div className="text-sm text-slate-400 mb-2">AI Decision Accuracy</div>
-              <div className="text-3xl font-bold text-green-400">94.2%</div>
-              <div className="text-xs text-slate-500 mt-1">Based on 1,245 episodes</div>
-            </div>
-            <div className="bg-slate-800 rounded-lg border border-slate-700 p-4">
-              <div className="text-sm text-slate-400 mb-2">Agent Coordination</div>
-              <div className="text-3xl font-bold text-blue-400">342</div>
-              <div className="text-xs text-slate-500 mt-1">Messages/min</div>
-            </div>
-            <div className="bg-slate-800 rounded-lg border border-slate-700 p-4">
-              <div className="text-sm text-slate-400 mb-2">Learning Rate</div>
-              <div className="text-3xl font-bold text-yellow-400">0.0003</div>
-              <div className="text-xs text-slate-500 mt-1">PPO optimizer</div>
-            </div>
-            <div className="bg-slate-800 rounded-lg border border-slate-700 p-4">
-              <div className="text-sm text-slate-400 mb-2">Reward Improvement</div>
-              <div className="text-3xl font-bold text-purple-400">+18.3</div>
-              <div className="text-xs text-slate-500 mt-1">Avg reward/episode</div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="p-6">
-          <HistoricalAnalytics />
-        </div>
-      )}
+          {activeTab === 'insights' && (
+            <motion.div
+              key="insights"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="p-6 space-y-6"
+            >
+              <GamificationPanel metrics={metrics} />
+              <AnomalyDetection agents={agents} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* House Details Modal */}
-      {selectedHouse && (
-        <HouseDetails
-          house={selectedHouse}
-          onClose={() => setSelectedHouse(null)}
-        />
-      )}
+      <AnimatePresence>
+        {selectedHouse && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+            onClick={() => setSelectedHouse(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="glass-card max-w-2xl w-full"
+            >
+              <HouseDetails
+                house={selectedHouse}
+                onClose={() => setSelectedHouse(null)}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Theme Toggle (Floating) */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <ThemeToggle />
+      </div>
     </div>
   )
 }
