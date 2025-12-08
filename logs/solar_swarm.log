@@ -590,3 +590,72 @@ ModuleNotFoundError: No module named 'gym'
 2025-12-08 21:00:34 - solar_swarm - INFO - routes.py:285 - Running scenario: custom
 2025-12-08 21:00:37 - solar_swarm - INFO - routes.py:285 - Running scenario: custom
 2025-12-08 21:00:43 - solar_swarm - INFO - routes.py:285 - Running scenario: custom
+2025-12-08 21:08:52 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 3
+2025-12-08 21:08:52 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 2
+2025-12-08 21:08:53 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 3
+2025-12-08 21:08:53 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 2
+2025-12-08 21:11:55 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-08 21:11:55 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-08 21:12:43 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-08 21:12:43 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-08 21:12:43 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-08 21:12:52 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-08 21:12:52 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-08 21:13:03 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-08 21:13:03 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-08 21:13:03 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-08 21:18:32 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-08 21:18:33 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-08 21:18:41 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-08 21:18:41 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-08 21:18:41 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-08 21:18:41 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-08 21:19:01 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-08 21:19:02 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-08 21:19:04 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-08 21:19:04 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-08 21:19:04 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-08 21:19:12 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-08 21:19:13 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-08 21:19:24 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-08 21:25:23 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 3
+2025-12-08 21:25:23 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 4
+2025-12-08 21:25:23 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 3
+2025-12-08 21:25:23 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 2
+2025-12-08 21:25:42 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 3
+2025-12-08 21:25:42 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 2
+2025-12-08 21:25:43 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 3
+2025-12-08 21:25:43 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 2
+2025-12-08 21:25:59 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 3
+2025-12-08 21:25:59 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 4
+2025-12-08 21:25:59 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 3
+2025-12-08 21:25:59 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 2
+2025-12-08 21:26:15 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 3
+2025-12-08 21:26:15 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 2
+2025-12-08 21:26:15 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 3
+2025-12-08 21:26:15 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 2
+2025-12-08 21:26:35 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 3
+2025-12-08 21:26:35 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 4
+2025-12-08 21:26:35 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 3
+2025-12-08 21:26:35 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 2
+2025-12-08 21:31:21 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 3
+2025-12-08 21:31:21 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 2
+2025-12-08 21:31:21 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-08 21:31:21 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-08 21:37:58 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-08 21:38:11 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-08 21:38:52 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-08 21:38:53 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-08 21:38:53 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-08 21:40:23 - solar_swarm - INFO - routes.py:59 - Starting simulation with 50 agents for 24 hours
+2025-12-08 21:40:32 - solar_swarm - INFO - routes.py:161 - Simulation stopped by user
+2025-12-08 21:40:33 - solar_swarm - INFO - routes.py:83 - Simulation stopped by user
+2025-12-08 21:40:33 - solar_swarm - INFO - routes.py:146 - Simulation completed: 24 hours
+2025-12-08 21:43:52 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-08 21:43:52 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-08 21:44:45 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-08 21:44:45 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-08 21:47:14 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-08 21:47:14 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-08 21:47:31 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-08 21:47:31 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1

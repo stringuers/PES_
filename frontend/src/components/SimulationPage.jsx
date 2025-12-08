@@ -42,13 +42,13 @@ export default function SimulationPage({ agents = [], status, onStart, onStop, o
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between"
+        className="flex items-center justify-between mb-6"
       >
         <div>
-          <h1 className="text-3xl font-bold gradient-text mb-2">
-            🏠 Simulation Control
+          <h1 className="text-3xl font-display font-bold gradient-text mb-2">
+            ⚡ Simulation Control
           </h1>
-          <p className="text-slate-400">
+          <p className="text-neutral-ash">
             Monitor and control all agents in the community
           </p>
         </div>
@@ -59,7 +59,7 @@ export default function SimulationPage({ agents = [], status, onStart, onStop, o
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={onPause}
-                className="px-6 py-2 bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-lg font-semibold hover:bg-yellow-500/30"
+                className="px-6 py-2 bg-energy-solar/20 text-energy-solar border border-energy-solar/30 rounded-xl font-display font-semibold hover:bg-energy-solar/30 transition-all"
               >
                 ⏸ Pause
               </motion.button>
@@ -67,7 +67,7 @@ export default function SimulationPage({ agents = [], status, onStart, onStop, o
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={onStop}
-                className="px-6 py-2 bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg font-semibold hover:bg-red-500/30"
+                className="px-6 py-2 bg-accent-coral/20 text-accent-coral border border-accent-coral/30 rounded-xl font-display font-semibold hover:bg-accent-coral/30 transition-all"
               >
                 ⏹ Stop
               </motion.button>
@@ -77,7 +77,7 @@ export default function SimulationPage({ agents = [], status, onStart, onStop, o
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={onStart}
-              className="px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg font-semibold shadow-lg shadow-green-500/50"
+              className="px-6 py-2 btn-primary font-display"
             >
               ▶ Start Simulation
             </motion.button>
@@ -88,33 +88,33 @@ export default function SimulationPage({ agents = [], status, onStart, onStop, o
       {/* Summary Stats */}
       <div className="grid grid-cols-4 gap-4">
         <GlassCard>
-          <div className="text-sm text-slate-400 mb-1">Total Agents</div>
-          <div className="text-3xl font-bold text-white">{stats.total}</div>
+          <div className="text-xs font-medium text-neutral-ash uppercase tracking-wider mb-2">Total Agents</div>
+          <div className="text-3xl font-display font-bold text-white">{stats.total}</div>
         </GlassCard>
         <GlassCard>
-          <div className="text-sm text-slate-400 mb-1">Balanced</div>
-          <div className="text-3xl font-bold text-blue-400">{stats.balanced}</div>
+          <div className="text-xs font-medium text-neutral-ash uppercase tracking-wider mb-2">Balanced</div>
+          <div className="text-3xl font-display font-bold text-energy-solar">{stats.balanced}</div>
         </GlassCard>
         <GlassCard>
-          <div className="text-sm text-slate-400 mb-1">Importing</div>
-          <div className="text-3xl font-bold text-red-400">{stats.importing}</div>
+          <div className="text-xs font-medium text-neutral-ash uppercase tracking-wider mb-2">Importing</div>
+          <div className="text-3xl font-display font-bold text-accent-coral">{stats.importing}</div>
         </GlassCard>
         <GlassCard>
-          <div className="text-sm text-slate-400 mb-1">Exporting</div>
-          <div className="text-3xl font-bold text-green-400">{stats.exporting}</div>
+          <div className="text-xs font-medium text-neutral-ash uppercase tracking-wider mb-2">Exporting</div>
+          <div className="text-3xl font-display font-bold text-energy-sage">{stats.exporting}</div>
         </GlassCard>
       </div>
 
       {/* Search and Filter */}
       <div className="flex items-center gap-4">
-        <div className="flex-1 glass rounded-lg px-4 py-2 flex items-center gap-2">
-          <span>🔍</span>
+        <div className="flex-1 input-premium flex items-center gap-2">
+          <span className="text-neutral-ash">🔍</span>
           <input
             type="text"
             placeholder="Search homes, agents, metrics..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 bg-transparent border-none outline-none text-white placeholder-slate-400"
+            className="flex-1 bg-transparent border-none outline-none text-white placeholder-neutral-ash"
           />
         </div>
         <div className="flex gap-2">
@@ -124,10 +124,10 @@ export default function SimulationPage({ agents = [], status, onStart, onStop, o
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setFilterStatus(filter)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`px-4 py-2 rounded-xl text-sm font-display font-medium transition-all ${
                 filterStatus === filter
-                  ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                  : 'glass text-slate-300 hover:bg-white/10'
+                  ? 'bg-energy-solar/20 text-energy-solar border-2 border-energy-solar/50'
+                  : 'glass text-neutral-silver hover:bg-white/10 border border-white/10'
               }`}
             >
               {filter.charAt(0).toUpperCase() + filter.slice(1)}

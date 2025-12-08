@@ -14,11 +14,15 @@ import {
 import EnhancedHeader from './components/EnhancedHeader'
 import ModernNavigation from './components/ModernNavigation'
 import EnhancedCommunityMap from './components/EnhancedCommunityMap'
-import City3DMap from './components/City3DMap'
+import City3DMap from './components/OptimizedCity3DMap'
 import HouseDetailsPanel from './components/HouseDetailsPanel'
+import EnergyFlowMonitor from './components/EnergyFlowMonitor'
 import AdvancedMetrics from './components/AdvancedMetrics'
 import EnhancedForecast from './components/EnhancedForecast'
 import PredictiveInsights from './components/PredictiveInsights'
+import EnhancedPredictiveInsights from './components/EnhancedPredictiveInsights'
+import EnhancedScenarioSimulator from './components/EnhancedScenarioSimulator'
+import MetricCard from './components/MetricCard'
 import GamificationPanel from './components/GamificationPanel'
 import RealTimeEnergyFlow from './components/RealTimeEnergyFlow'
 import GlassCard from './components/GlassCard'
@@ -164,26 +168,37 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
-      {/* Animated background elements */}
+    <div className="min-h-screen bg-gradient-premium text-white relative overflow-hidden">
+      {/* Premium animated background elements - warm tones */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {/* Ambient warm glow - left */}
         <motion.div
-          className="absolute top-20 left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+          className="absolute top-20 left-20 w-[500px] h-[500px] bg-energy-solar/8 rounded-full blur-3xl"
           animate={{
-            x: [0, 100, 0],
-            y: [0, 50, 0],
-            scale: [1, 1.2, 1],
+            x: [0, 80, 0],
+            y: [0, 40, 0],
+            scale: [1, 1.15, 1],
           }}
-          transition={{ duration: 20, repeat: Infinity }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
         />
+        {/* Ambient sage glow - right */}
         <motion.div
-          className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+          className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-energy-sage/8 rounded-full blur-3xl"
           animate={{
-            x: [0, -100, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.2, 1],
+            x: [0, -80, 0],
+            y: [0, -40, 0],
+            scale: [1, 1.15, 1],
           }}
-          transition={{ duration: 25, repeat: Infinity }}
+          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* Accent warm glow - center */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-peach/5 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
@@ -224,37 +239,86 @@ export default function App() {
               exit={{ opacity: 0, y: -20 }}
               className="p-6 space-y-6"
             >
-              {/* Top Row: Forecast & Quick Stats */}
+              {/* Main Layout: Performance Overview + Scenario Simulator */}
               <div className="grid grid-cols-12 gap-6">
-                <div className="col-span-12 md:col-span-4">
-                  <EnhancedForecast forecast={forecast} />
+                {/* Left Side: Performance Overview & Predictive Insights */}
+                <div className="col-span-12 lg:col-span-7 space-y-6">
+                  {/* 6 Metric Cards - 2 rows of 3 */}
+                  <div className="grid grid-cols-3 gap-4">
+                    <MetricCard
+                      icon="☀️"
+                      label="SOLAR UTILIZATION"
+                      value={metrics?.solar_utilization_pct || 0}
+                      unit="%"
+                      trend={23}
+                      color="amber"
+                      delay={0}
+                    />
+                    <MetricCard
+                      icon="🔋"
+                      label="SELF-SUFFICIENCY"
+                      value={metrics?.self_sufficiency_pct || 0}
+                      unit="%"
+                      trend={1.8}
+                      color="sage"
+                      delay={0.1}
+                    />
+                    <MetricCard
+                      icon="💰"
+                      label="COST SAVINGS"
+                      value={metrics?.cost_savings_daily || 0}
+                      unit=" TND"
+                      trend={6.2}
+                      color="gold"
+                      delay={0.2}
+                    />
+                    <MetricCard
+                      icon="🌱"
+                      label="CO₂ AVOIDED"
+                      value={metrics?.co2_avoided_kg || 0}
+                      unit=" kg"
+                      trend={3.1}
+                      color="mint"
+                      delay={0.3}
+                    />
+                    <MetricCard
+                      icon="💎"
+                      label="ENERGY SHARED"
+                      value={metrics?.energy_shared_kwh || 0}
+                      unit=" kWh"
+                      trend={4.5}
+                      color="gold"
+                      delay={0.4}
+                    />
+                    <MetricCard
+                      icon="⚡"
+                      label="GRID DEPENDENCY"
+                      value={metrics?.grid_dependency_pct || 0}
+                      unit="%"
+                      trend={-2.1}
+                      color="coral"
+                      delay={0.5}
+                    />
+                  </div>
+
+                  {/* Predictive Insights */}
+                  <EnhancedPredictiveInsights metrics={metrics} forecast={forecast} />
                 </div>
-                <div className="col-span-12 md:col-span-8">
-                  <AdvancedMetrics metrics={metrics} forecast={forecast} />
+
+                {/* Right Side: Scenario Simulator */}
+                <div className="col-span-12 lg:col-span-5">
+                  <EnhancedScenarioSimulator onScenarioRun={refreshData} />
                 </div>
               </div>
 
-              {/* Main Visualization */}
-              <GlassCard className="p-0 overflow-hidden">
-                <div className="p-6 border-b border-white/10">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-bold gradient-text">
-                      🌍 Community Energy Network
-                    </h2>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-2 text-sm">
-                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span className="text-slate-400">Surplus</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <span className="text-slate-400">Balanced</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                        <span className="text-slate-400">Deficit</span>
-                      </div>
-                    </div>
+              {/* 3D City Map - Full Width Below */}
+              <GlassCard hover={false} className="p-0 overflow-hidden border border-white/10 hover:border-energy-solar/20 transition-all duration-500">
+                <div className="p-5 border-b border-white/10 flex items-center justify-between bg-gradient-to-r from-energy-solar/5 to-transparent">
+                  <h2 className="text-xl font-display font-bold gradient-text">
+                    🌍 3D City Energy Network
+                  </h2>
+                  <div className="text-xs font-medium text-neutral-ash uppercase tracking-wider px-3 py-1.5 glass rounded-full border border-white/10">
+                    Click houses to view details
                   </div>
                 </div>
                 <City3DMap
@@ -265,17 +329,14 @@ export default function App() {
                 />
               </GlassCard>
 
-              {/* Predictive Insights */}
-              <PredictiveInsights metrics={metrics} forecast={forecast} />
-
-              {/* Bottom Row: Monitoring & Scenarios */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Bottom Row: Additional Monitoring */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <EnergyFlowMonitor energyFlows={energyFlows} agents={agents} />
                 <GlassCard>
+                  <h3 className="text-lg font-display font-semibold mb-4 gradient-text">Agent Status</h3>
                   <SwarmMonitor agents={agents} />
                 </GlassCard>
-                <GlassCard>
-                  <ScenarioSimulator onScenarioRun={refreshData} />
-                </GlassCard>
+                <EnhancedForecast forecast={forecast} />
               </div>
             </motion.div>
           )}

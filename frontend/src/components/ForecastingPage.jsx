@@ -43,10 +43,10 @@ export default function ForecastingPage({ forecast = [] }) {
         animate={{ opacity: 1, y: 0 }}
         className="mb-6"
       >
-        <h1 className="text-3xl font-bold gradient-text mb-2">
+        <h1 className="text-3xl font-display font-bold gradient-text mb-2">
           🔮 AI Forecasting
         </h1>
-        <p className="text-slate-400">
+        <p className="text-neutral-ash">
           Advanced machine learning models for solar production prediction
         </p>
       </motion.div>

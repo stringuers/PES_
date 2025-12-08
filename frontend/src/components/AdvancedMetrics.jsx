@@ -10,7 +10,7 @@ export default function AdvancedMetrics({ metrics, forecast }) {
       value: metrics?.solar_utilization_pct || 0,
       unit: '%',
       icon: '☀️',
-      color: 'yellow',
+      color: 'amber',
       trend: 2.3,
     },
     {
@@ -18,7 +18,7 @@ export default function AdvancedMetrics({ metrics, forecast }) {
       value: metrics?.self_sufficiency_pct || 0,
       unit: '%',
       icon: '🔋',
-      color: 'green',
+      color: 'sage',
       trend: 1.8,
     },
     {
@@ -26,7 +26,7 @@ export default function AdvancedMetrics({ metrics, forecast }) {
       value: metrics?.cost_savings_daily || 0,
       unit: ' TND',
       icon: '💰',
-      color: 'green',
+      color: 'sage',
       trend: 5.2,
     },
     {
@@ -34,7 +34,7 @@ export default function AdvancedMetrics({ metrics, forecast }) {
       value: metrics?.co2_avoided_kg || 0,
       unit: ' kg',
       icon: '🌱',
-      color: 'cyan',
+      color: 'mint',
       trend: 3.1,
     },
     {
@@ -42,7 +42,7 @@ export default function AdvancedMetrics({ metrics, forecast }) {
       value: metrics?.energy_shared_kwh || 0,
       unit: ' kWh',
       icon: '🤝',
-      color: 'purple',
+      color: 'gold',
       trend: 4.5,
     },
     {
@@ -50,7 +50,7 @@ export default function AdvancedMetrics({ metrics, forecast }) {
       value: metrics?.grid_dependency_pct || 0,
       unit: '%',
       icon: '⚡',
-      color: 'red',
+      color: 'coral',
       trend: -2.1,
     },
   ]
