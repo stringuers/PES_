@@ -15,11 +15,20 @@ export default {
           blue: '#3b82f6',
           purple: '#8b5cf6',
           cyan: '#06b6d4',
+          orange: '#f97316',
+          darkBlue: '#1e40af',
         },
         glass: {
           light: 'rgba(255, 255, 255, 0.1)',
           medium: 'rgba(255, 255, 255, 0.15)',
           dark: 'rgba(0, 0, 0, 0.2)',
+        },
+        city: {
+          dark: '#0f172a',
+          medium: '#1e293b',
+          light: '#334155',
+          accent: '#f97316',
+          glow: '#3b82f6',
         }
       },
       backgroundImage: {

@@ -14,6 +14,8 @@ import {
 import EnhancedHeader from './components/EnhancedHeader'
 import ModernNavigation from './components/ModernNavigation'
 import EnhancedCommunityMap from './components/EnhancedCommunityMap'
+import City3DMap from './components/City3DMap'
+import HouseDetailsPanel from './components/HouseDetailsPanel'
 import AdvancedMetrics from './components/AdvancedMetrics'
 import EnhancedForecast from './components/EnhancedForecast'
 import PredictiveInsights from './components/PredictiveInsights'
@@ -21,6 +23,9 @@ import GamificationPanel from './components/GamificationPanel'
 import RealTimeEnergyFlow from './components/RealTimeEnergyFlow'
 import GlassCard from './components/GlassCard'
 import ThemeToggle from './components/ThemeToggle'
+import ForecastingPage from './components/ForecastingPage'
+import SimulationPage from './components/SimulationPage'
+import AnalyticsPage from './components/AnalyticsPage'
 
 // Existing components (keeping for compatibility)
 import SwarmMonitor from './components/SwarmMonitor'
@@ -252,10 +257,11 @@ export default function App() {
                     </div>
                   </div>
                 </div>
-                <EnhancedCommunityMap
+                <City3DMap
                   agents={agents}
                   energyFlows={energyFlows}
                   onHouseClick={handleHouseClick}
+                  selectedHouseId={selectedHouse?.id}
                 />
               </GlassCard>
 
@@ -272,6 +278,24 @@ export default function App() {
                 </GlassCard>
               </div>
             </motion.div>
+          )}
+
+          {activeTab === 'simulation' && (
+            <SimulationPage
+              agents={agents}
+              status={status}
+              onStart={handleStart}
+              onStop={handleStop}
+              onPause={handleStop}
+            />
+          )}
+
+          {activeTab === 'forecasting' && (
+            <ForecastingPage forecast={forecast?.forecast || forecast || []} />
+          )}
+
+          {activeTab === 'analytics' && (
+            <AnalyticsPage metrics={metrics} />
           )}
 
           {activeTab === 'intelligence' && (
@@ -305,59 +329,15 @@ export default function App() {
               <RealTimeEnergyFlow energyFlows={energyFlows} agents={agents} />
             </motion.div>
           )}
-
-          {activeTab === 'analytics' && (
-            <motion.div
-              key="analytics"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="p-6"
-            >
-              <HistoricalAnalytics />
-            </motion.div>
-          )}
-
-          {activeTab === 'insights' && (
-            <motion.div
-              key="insights"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="p-6 space-y-6"
-            >
-              <GamificationPanel metrics={metrics} />
-              <AnomalyDetection agents={agents} />
-            </motion.div>
-          )}
         </AnimatePresence>
       </div>
 
-      {/* House Details Modal */}
-      <AnimatePresence>
-        {selectedHouse && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-            onClick={() => setSelectedHouse(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="glass-card max-w-2xl w-full"
-            >
-              <HouseDetails
-                house={selectedHouse}
-                onClose={() => setSelectedHouse(null)}
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* House Details Panel (Side Panel) */}
+      <HouseDetailsPanel
+        house={selectedHouse}
+        onClose={() => setSelectedHouse(null)}
+        isVisible={!!selectedHouse}
+      />
 
       {/* Theme Toggle (Floating) */}
       <div className="fixed bottom-6 right-6 z-50">

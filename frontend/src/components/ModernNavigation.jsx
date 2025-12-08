@@ -4,9 +4,10 @@ import { motion } from 'framer-motion'
 export default function ModernNavigation({ activeTab, onTabChange }) {
   const tabs = [
     { id: 'dashboard', label: 'Dashboard', icon: '🏠' },
-    { id: 'intelligence', label: 'AI Intelligence', icon: '🤖' },
+    { id: 'simulation', label: 'Simulation', icon: '⚡' },
+    { id: 'forecasting', label: 'Forecasting', icon: '🔮' },
     { id: 'analytics', label: 'Analytics', icon: '📊' },
-    { id: 'insights', label: 'Insights', icon: '🔮' },
+    { id: 'intelligence', label: 'AI Intelligence', icon: '🤖' },
   ]
 
   return (
