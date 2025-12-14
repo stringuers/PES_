@@ -114,8 +114,13 @@ class SwarmSimulator:
     Simulate community of solar panel agents
     """
     
-    def __init__(self, num_agents=10):
-        self.agents = [SolarPanelAgent(i) for i in range(num_agents)]
+    def __init__(self, num_agents=10, use_rl=False, rl_model_path=None):
+        # Create agents (with optional RL support)
+        if use_rl and rl_model_path:
+            from .rl_hybrid_agent import HybridRLAgent
+            self.agents = [HybridRLAgent(i, use_rl=True, rl_model_path=rl_model_path) for i in range(num_agents)]
+        else:
+            self.agents = [SolarPanelAgent(i) for i in range(num_agents)]
         self.connect_neighbors()
         self.time_step = 0
         self.results = {

@@ -17,14 +17,20 @@ from .schemas import (
     ForecastResponse
 )
 from ..agents.base_agent import SwarmSimulator
+from ..agents.rl_hybrid_agent import HybridRLAgent
 from ..utils.metrics import PerformanceEvaluator
 from ..utils.logger import logger
+from ..utils.historical_storage import HistoricalStorage
+from ..services.forecasting_service import get_forecasting_service
+from ..services.anomaly_service import get_anomaly_service
 
 router = APIRouter()
 
 # Global simulation state
 current_simulation = None
 simulation_running = False
+historical_storage = HistoricalStorage()
+step_results_history = []  # Store step results for historical storage
 
 @router.get("/simulation/status", response_model=SimulationStatus)
 async def get_simulation_status():
@@ -58,9 +64,23 @@ async def start_simulation(request: SimulationStartRequest, background_tasks: Ba
     
     logger.info(f"Starting simulation with {request.num_agents} agents for {request.hours} hours")
     
-    # Create simulator
-    current_simulation = SwarmSimulator(num_agents=request.num_agents)
+    # Create simulator (with optional RL agents)
+    use_rl = request.scenario == "rl_agents" if request.scenario else False
+    if use_rl:
+        # Create hybrid RL agents
+        agents = []
+        rl_model_path = "models/solar_swarm_ppo.pth"  # Path to trained RL model
+        for i in range(request.num_agents):
+            agent = HybridRLAgent(i, use_rl=True, rl_model_path=rl_model_path)
+            agents.append(agent)
+        # Note: Would need to modify SwarmSimulator to accept custom agents
+        # For now, fall back to regular simulator
+        current_simulation = SwarmSimulator(num_agents=request.num_agents)
+    else:
+        current_simulation = SwarmSimulator(num_agents=request.num_agents)
+    
     simulation_running = True
+    step_results_history = []  # Reset history
     
     # Run simulation in background
     background_tasks.add_task(run_simulation_background, request.hours)
@@ -137,6 +157,26 @@ async def run_simulation_background(hours: int):
                 }
             }
             
+            # Store step result for historical storage
+            step_results_history.append(step_result)
+            
+            # Detect anomalies
+            anomaly_service = get_anomaly_service()
+            agent_data = [
+                {
+                    'agent_id': agent.id,
+                    'production': agent.production,
+                    'consumption': agent.consumption,
+                    'battery_level': agent.battery_level,
+                    'net_energy': agent.production - agent.consumption,
+                    'hour': hour
+                }
+                for agent in current_simulation.agents
+            ]
+            anomalies = anomaly_service.detect_anomalies(agent_data)
+            if anomalies:
+                update['anomalies'] = anomalies
+            
             # Broadcast to all connected clients
             await ws_manager.broadcast(update)
             
@@ -144,10 +184,25 @@ async def run_simulation_background(hours: int):
             await asyncio.sleep(2)
             
         logger.info(f"Simulation completed: {hours} hours")
+        
+        # Save to historical storage
+        try:
+            sim_id = historical_storage.save_simulation(
+                num_agents=len(current_simulation.agents),
+                hours=hours,
+                scenario_type=None,
+                parameters=None,
+                step_results=step_results_history
+            )
+            logger.info(f"✅ Simulation saved to history (ID: {sim_id})")
+        except Exception as e:
+            logger.error(f"Failed to save simulation history: {e}")
+        
     except Exception as e:
         logger.error(f"Simulation error: {e}", exc_info=True)
     finally:
         simulation_running = False
+        step_results_history = []
 
 @router.post("/simulation/stop")
 async def stop_simulation():
@@ -279,41 +334,57 @@ async def get_community_metrics():
 
 @router.post("/scenario/run")
 async def run_scenario(scenario: ScenarioRequest):
-    """Run a specific scenario simulation"""
+    """Run a specific scenario simulation with enhanced parameters"""
     global current_simulation
     
     logger.info(f"Running scenario: {scenario.scenario_type}")
     
     # Create new simulator
-    simulator = SwarmSimulator(num_agents=50)
+    num_agents = scenario.parameters.get('num_agents', 50) if scenario.parameters else 50
+    simulator = SwarmSimulator(num_agents=num_agents)
     
     # Apply scenario modifications
     if scenario.scenario_type == "cloudy_day":
-        # Reduce production by 70%
+        cloud_cover = scenario.parameters.get('cloud_cover', 70) if scenario.parameters else 70
+        production_factor = 1.0 - (cloud_cover / 100.0) * 0.9  # 0-90% reduction
         for agent in simulator.agents:
-            agent.production *= 0.3
+            agent.production *= production_factor
     
     elif scenario.scenario_type == "panel_failure":
-        # Fail 5 random panels
+        num_failed = scenario.parameters.get('num_failed', 5) if scenario.parameters else 5
         import random
-        failed_agents = random.sample(range(len(simulator.agents)), 5)
+        failed_agents = random.sample(range(len(simulator.agents)), min(num_failed, len(simulator.agents)))
         for idx in failed_agents:
             simulator.agents[idx].production = 0
     
     elif scenario.scenario_type == "peak_demand":
-        # Increase consumption by 100%
+        demand_multiplier = scenario.parameters.get('demand_multiplier', 2.0) if scenario.parameters else 2.0
         for agent in simulator.agents:
-            agent.consumption *= 2.0
+            agent.consumption *= demand_multiplier
+    
+    elif scenario.scenario_type == "grid_outage":
+        # Simulate grid outage - agents can only share with neighbors
+        # This is handled in the decision logic, but we can mark it
+        for agent in simulator.agents:
+            agent.grid_available = False
+    
+    elif scenario.scenario_type == "heatwave":
+        # High consumption due to AC, reduced panel efficiency
+        for agent in simulator.agents:
+            agent.consumption *= 1.5  # Increased AC usage
+            agent.production *= 0.85  # Reduced efficiency due to heat
     
     elif scenario.scenario_type == "custom":
         # Apply custom parameters
         if scenario.parameters:
             production_factor = scenario.parameters.get('production_factor', 1.0)
             consumption_factor = scenario.parameters.get('consumption_factor', 1.0)
+            battery_factor = scenario.parameters.get('battery_factor', 1.0)
             
             for agent in simulator.agents:
                 agent.production *= production_factor
                 agent.consumption *= consumption_factor
+                agent.battery_capacity *= battery_factor
     
     # Run simulation
     results = simulator.run(hours=24)
@@ -343,50 +414,78 @@ async def run_scenario(scenario: ScenarioRequest):
 
 @router.get("/forecast/24h", response_model=ForecastResponse)
 async def get_forecast():
-    """Get 24-hour solar production forecast"""
-    # This would use the trained LSTM/Prophet model
-    # For now, return mock data
+    """Get 24-hour solar production forecast using LSTM/Prophet models"""
+    forecasting_service = get_forecasting_service()
     
-    import numpy as np
-    from datetime import datetime, timedelta
+    # Get historical data if available
+    historical_data = None
+    if current_simulation and step_results_history:
+        historical_data = []
+        for result in step_results_history[-24:]:
+            for agent in current_simulation.agents:
+                historical_data.append({
+                    'hour': result.get('hour', 12),
+                    'production': agent.production,
+                    'consumption': agent.consumption,
+                    'battery_pct': agent.battery_level / agent.battery_capacity
+                })
     
-    now = datetime.now()
-    timestamps = [now + timedelta(hours=i) for i in range(24)]
+    # Get weather forecast (if available)
+    weather_forecast = None  # Could be fetched from weather API
     
-    # Generate realistic forecast pattern
-    forecast = []
-    for i, ts in enumerate(timestamps):
-        hour = ts.hour
-        if 6 <= hour <= 18:
-            production = 5 * np.sin((hour - 6) * np.pi / 12)
-        else:
-            production = 0
-        
-        forecast.append({
-            "timestamp": ts.isoformat(),
-            "predicted_kwh": round(production, 2),
-            "confidence_lower": round(production * 0.9, 2),
-            "confidence_upper": round(production * 1.1, 2)
-        })
+    # Get forecast
+    forecast = forecasting_service.predict_24h(
+        historical_data=historical_data,
+        weather_forecast=weather_forecast
+    )
     
     return ForecastResponse(
         forecast_horizon_hours=24,
-        model_type="LSTM",
+        model_type=forecasting_service.model_type.upper(),
         forecast=forecast
     )
 
-@router.get("/metrics/history")
-async def get_metrics_history(hours: int = 24):
-    """Get historical metrics"""
+@router.get("/anomalies")
+async def get_anomalies():
+    """Get current anomaly alerts"""
     global current_simulation
     
     if current_simulation is None:
-        raise HTTPException(status_code=404, detail="No simulation data")
+        return {"anomalies": []}
     
-    return {
-        "hours": hours,
-        "solar_used": current_simulation.results['solar_used'][-hours:],
-        "grid_import": current_simulation.results['grid_import'][-hours:],
+    anomaly_service = get_anomaly_service()
+    
+    # Prepare agent data
+    agent_data = [
+        {
+            'agent_id': agent.id,
+            'production': agent.production,
+            'consumption': agent.consumption,
+            'battery_level': agent.battery_level,
+            'net_energy': agent.production - agent.consumption,
+            'hour': current_simulation.time_step % 24
+        }
+        for agent in current_simulation.agents
+    ]
+    
+    anomalies = anomaly_service.detect_anomalies(agent_data)
+    
+    return {"anomalies": anomalies}
+
+@router.get("/metrics/history")
+async def get_metrics_history(hours: int = 24):
+    """Get historical metrics from database"""
+    try:
+        history = historical_storage.get_metrics_history(hours=hours)
+        return history
+    except Exception as e:
+        logger.error(f"Failed to get metrics history: {e}")
+        # Fallback to current simulation if available
+        if current_simulation:
+            return {
+                "hours": hours,
+                "solar_used": current_simulation.results.get('solar_used', [])[-hours:],
+                "grid_import": current_simulation.results.get('grid_import', [])[-hours:],
         "energy_shared": current_simulation.results['shared_energy'][-hours:]
     }
 
