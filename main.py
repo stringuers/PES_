@@ -108,31 +108,107 @@ def main():
         # Train models
         logger.info(f"🤖 Training {args.model} model(s)...")
         
+        # Check if data exists
+        data_path = Path('data/processed/synthetic/community_90days.csv')
+        if not data_path.exists():
+            logger.error("❌ Training data not found!")
+            logger.info("📊 Generating training data first...")
+            from src.data_collection.generate_synthetic import SyntheticDataGenerator
+            generator = SyntheticDataGenerator(num_houses=50, days=90)
+            generator.save_dataset()
+            logger.info("✅ Training data generated!")
+        
+        models_trained = []
+        
+        # Train LSTM
         if args.model in ['lstm', 'all']:
-            logger.info("Training LSTM forecaster...")
-            from src.models.lstm_forecaster import train_lstm_model
-            import pandas as pd
-            import numpy as np
-            
-            # Load data
             try:
-                data = pd.read_csv('data/processed/synthetic/community_90days.csv')
-                # Prepare data for LSTM
-                # This is simplified - full implementation would do proper preprocessing
+                logger.info("🤖 Training LSTM forecaster...")
+                import pandas as pd
+                import numpy as np
+                from src.models.lstm_forecaster import train_lstm_model
+                
+                # Load data
+                df = pd.read_csv(data_path)
+                
+                # Prepare features
+                feature_cols = ['temperature_c', 'cloud_cover_pct', 'humidity_pct', 
+                               'wind_speed_kmh', 'production_kwh']
+                
+                # Check if columns exist
+                missing_cols = [col for col in feature_cols if col not in df.columns]
+                if missing_cols:
+                    logger.warning(f"⚠️ Missing columns: {missing_cols}, using available columns")
+                    feature_cols = [col for col in feature_cols if col in df.columns]
+                
+                # Train/test split
+                split_idx = int(len(df) * 0.8)
+                train_data = df[feature_cols].values[:split_idx]
+                test_data = df[feature_cols].values[split_idx:]
+                
+                # Train model
+                model = train_lstm_model(train_data, test_data, epochs=50)
+                models_trained.append('LSTM')
                 logger.info("✅ LSTM training complete")
-            except FileNotFoundError:
-                logger.error("❌ Training data not found. Run 'generate-data' first.")
+            except Exception as e:
+                logger.error(f"❌ LSTM training failed: {e}", exc_info=True)
         
+        # Train Prophet
         if args.model in ['prophet', 'all']:
-            logger.info("Training Prophet forecaster...")
-            from src.models.forecasting import SolarForecaster
-            logger.info("✅ Prophet training complete")
+            try:
+                logger.info("🤖 Training Prophet forecaster...")
+                import pandas as pd
+                from src.models.forecasting import SolarForecaster
+                
+                # Load data
+                df = pd.read_csv(data_path)
+                
+                # Aggregate by timestamp for community-level forecast
+                if 'timestamp' in df.columns:
+                    community = df.groupby('timestamp').agg({
+                        'production_kwh': 'sum',
+                        'temperature_c': 'mean' if 'temperature_c' in df.columns else 'first',
+                        'cloud_cover_pct': 'mean' if 'cloud_cover_pct' in df.columns else 'first'
+                    }).reset_index()
+                    
+                    # Prepare Prophet data - need DataFrame with 'timestamp' and 'production_kwh'
+                    # SolarForecaster.prepare_data expects 'timestamp' and 'production_kwh'
+                    # Train Prophet
+                    forecaster = SolarForecaster()
+                    forecaster.train(community)
+                    
+                    # Save model
+                    import pickle
+                    Path('models').mkdir(exist_ok=True)
+                    with open('models/prophet_model.pkl', 'wb') as f:
+                        pickle.dump(forecaster.model, f)
+                    
+                    models_trained.append('Prophet')
+                    logger.info("✅ Prophet training complete")
+                else:
+                    logger.warning("⚠️ No timestamp column found, skipping Prophet training")
+            except Exception as e:
+                logger.error(f"❌ Prophet training failed: {e}", exc_info=True)
         
+        # Train PPO
         if args.model in ['ppo', 'all']:
-            logger.info("Training PPO agents...")
-            from src.agents.rl_agent import train_rl_agents
-            model = train_rl_agents(total_timesteps=100000)
-            logger.info("✅ PPO training complete")
+            try:
+                logger.info("🤖 Training PPO agents...")
+                from src.agents.rl_agent import train_rl_agents
+                
+                # Train PPO (this may take a while)
+                model = train_rl_agents(total_timesteps=100000)
+                models_trained.append('PPO')
+                logger.info("✅ PPO training complete")
+            except Exception as e:
+                logger.error(f"❌ PPO training failed: {e}", exc_info=True)
+        
+        logger.info("=" * 60)
+        if models_trained:
+            logger.info(f"✅ Training complete! Models trained: {', '.join(models_trained)}")
+        else:
+            logger.warning("⚠️ No models were successfully trained")
+        logger.info("=" * 60)
     
     elif args.command == 'generate-data':
         # Generate synthetic data
