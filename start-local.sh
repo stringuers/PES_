@@ -48,3 +48,5 @@ echo "   - Backend API: http://localhost:8000/docs"
 echo "   - Frontend UI: http://localhost:3000"
 echo ""
 
+
+

@@ -680,3 +680,64 @@ ModuleNotFoundError: No module named 'gym'
 2025-12-08 22:35:07 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
 2025-12-08 22:35:07 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
 2025-12-08 22:35:07 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-19 18:30:10 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-19 18:30:10 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-19 18:30:10 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-19 18:30:10 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-19 18:30:10 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-19 18:30:14 - solar_swarm - INFO - main.py:24 - 🚀 Starting Solar Swarm Intelligence API
+2025-12-19 18:30:14 - solar_swarm - INFO - main.py:25 -    Agents: 50
+2025-12-19 18:30:14 - solar_swarm - INFO - main.py:26 -    Battery: 10.0 kWh
+2025-12-19 18:30:14 - solar_swarm - INFO - main.py:29 - 🛑 Shutting down API
+2025-12-19 18:31:32 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-19 18:31:32 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-19 18:31:32 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-19 18:31:32 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-19 18:31:32 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-19 18:31:36 - solar_swarm - INFO - main.py:24 - 🚀 Starting Solar Swarm Intelligence API
+2025-12-19 18:31:36 - solar_swarm - INFO - main.py:25 -    Agents: 50
+2025-12-19 18:31:36 - solar_swarm - INFO - main.py:26 -    Battery: 10.0 kWh
+2025-12-19 18:31:54 - solar_swarm - INFO - routes.py:71 - Starting simulation with 50 agents for 24 hours
+2025-12-19 18:31:54 - solar_swarm - INFO - routes.py:95 - Simulation initialized with 50 agents
+2025-12-19 18:32:09 - solar_swarm - INFO - routes.py:249 - Simulation stopped by user
+2025-12-19 18:32:10 - solar_swarm - INFO - routes.py:136 - Simulation stopped by user
+2025-12-19 18:32:10 - solar_swarm - INFO - routes.py:219 - Simulation completed: 24 hours
+2025-12-19 18:32:10 - solar_swarm - INFO - routes.py:230 - ✅ Simulation saved to history (ID: 1)
+2025-12-19 18:39:52 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-19 18:39:52 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-19 18:39:52 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-19 18:39:52 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-19 18:39:52 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-19 18:39:55 - solar_swarm - INFO - main.py:24 - 🚀 Starting Solar Swarm Intelligence API
+2025-12-19 18:39:55 - solar_swarm - INFO - main.py:25 -    Agents: 50
+2025-12-19 18:39:55 - solar_swarm - INFO - main.py:26 -    Battery: 10.0 kWh
+2025-12-19 18:39:55 - solar_swarm - INFO - main.py:29 - 🛑 Shutting down API
+2025-12-19 18:45:36 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 18:45:36 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 18:45:36 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 18:45:38 - solar_swarm - INFO - routes.py:71 - Starting simulation with 50 agents for 24 hours
+2025-12-19 18:45:38 - solar_swarm - INFO - routes.py:95 - Simulation initialized with 50 agents
+2025-12-19 18:46:24 - solar_swarm - INFO - routes.py:219 - Simulation completed: 24 hours
+2025-12-19 18:46:24 - solar_swarm - INFO - routes.py:230 - ✅ Simulation saved to history (ID: 2)
+2025-12-19 18:47:08 - solar_swarm - INFO - routes.py:71 - Starting simulation with 50 agents for 24 hours
+2025-12-19 18:47:08 - solar_swarm - INFO - routes.py:95 - Simulation initialized with 50 agents
+2025-12-19 18:47:34 - solar_swarm - INFO - routes.py:373 - Running scenario: cloudy_day
+2025-12-19 18:47:54 - solar_swarm - INFO - routes.py:249 - Simulation stopped by user
+2025-12-19 18:47:55 - solar_swarm - INFO - routes.py:219 - Simulation completed: 24 hours
+2025-12-19 18:47:55 - solar_swarm - INFO - routes.py:230 - ✅ Simulation saved to history (ID: 3)
+2025-12-19 18:49:22 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 18:49:23 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 18:49:23 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 18:49:23 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 18:53:23 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 18:53:23 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 18:53:23 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 18:53:23 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 19:00:33 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 19:00:34 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 19:00:34 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 19:00:34 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 19:38:27 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-19 19:38:27 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-19 19:38:27 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
+2025-12-19 19:38:28 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1

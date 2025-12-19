@@ -101,3 +101,23 @@ class HealthResponse(BaseModel):
     status: str = Field("healthy", description="System health status")
     timestamp: float
     version: str = Field("1.0.0", description="API version")
+
+class IoTDataRequest(BaseModel):
+    """IoT sensor data request from ESP32"""
+    device_id: str = Field(..., description="Device identifier")
+    sensor_data: Dict[str, Any] = Field(..., description="Sensor readings")
+    timestamp: str = Field(..., description="ISO timestamp")
+
+class IoTCommandResponse(BaseModel):
+    """IoT command response"""
+    command: Dict[str, Any] = Field(..., description="Command to execute")
+    timestamp: str = Field(..., description="Command timestamp")
+
+class IoTDataResponse(BaseModel):
+    """IoT data processing response"""
+    status: str = Field(..., description="Processing status")
+    power_kw: float = Field(..., description="Power in kilowatts")
+    anomalies_detected: int = Field(0, description="Number of anomalies detected")
+    forecast_next_hour: float = Field(..., description="Forecasted production for next hour")
+    command: Dict[str, Any] = Field(..., description="AI-generated command")
+    timestamp: str = Field(..., description="Response timestamp")

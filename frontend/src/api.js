@@ -7,13 +7,31 @@ export async function getStatus() {
 }
 
 export async function startSimulation(numAgents = 50, hours = 24) {
-  const res = await fetch(`${API_BASE}/api/v1/simulation/start`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ num_agents: numAgents, hours })
-  })
-  if (!res.ok) throw new Error(`Start failed: ${res.status}`)
-  return res.json()
+  try {
+    console.log(`Starting simulation with ${numAgents} agents for ${hours} hours...`)
+    const res = await fetch(`${API_BASE}/api/v1/simulation/start`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ num_agents: numAgents, hours })
+    })
+    
+    if (!res.ok) {
+      const errorText = await res.text()
+      console.error('Simulation start failed:', res.status, errorText)
+      throw new Error(`Start failed: ${res.status} - ${errorText}`)
+    }
+    
+    const data = await res.json()
+    console.log('Simulation started successfully:', data)
+    return data
+  } catch (error) {
+    console.error('Error starting simulation:', error)
+    // Re-throw with more context
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend API. Make sure the server is running on ' + API_BASE)
+    }
+    throw error
+  }
 }
 
 export async function stopSimulation() {

@@ -140,10 +140,23 @@ export default function App() {
     setLoading(true)
     setError(null)
     try {
-      await startSimulation(50, 24)
+      console.log('Starting simulation...')
+      const result = await startSimulation(50, 24)
+      console.log('Simulation started:', result)
+      
+      // If agents are included in response, use them immediately
+      if (result.agents && Array.isArray(result.agents) && result.agents.length > 0) {
+        console.log('Setting agents from start response:', result.agents.length)
+        setAgents(result.agents)
+      }
+      
+      // Wait a moment for simulation to initialize, then refresh
+      await new Promise(resolve => setTimeout(resolve, 500))
       await refreshData()
     } catch (e) {
-      setError('Failed to start simulation: ' + (e?.message || e))
+      console.error('Failed to start simulation:', e)
+      const errorMessage = e?.message || e?.toString() || 'Unknown error'
+      setError('Failed to start simulation: ' + errorMessage)
     } finally {
       setLoading(false)
     }
@@ -163,8 +176,28 @@ export default function App() {
   }
 
   const handleHouseClick = (houseId) => {
-    const house = agents.find(a => a.id === houseId)
-    setSelectedHouse(house)
+    console.log('House clicked:', houseId, 'Type:', typeof houseId, 'Available agents:', agents.length)
+    console.log('Available agent IDs:', agents.map(a => ({ id: a.id, type: typeof a.id })))
+    
+    // Try to find by exact ID match (string or number)
+    let house = agents.find(a => a.id === houseId || a.id === parseInt(houseId) || a.id === String(houseId))
+    
+    if (!house) {
+      // Try by index if houseId is a number
+      const index = parseInt(houseId)
+      if (!isNaN(index) && index >= 0 && index < agents.length) {
+        house = agents[index]
+        console.log('Found house by index:', index, house)
+      }
+    }
+    
+    if (house) {
+      console.log('Setting selected house:', house)
+      setSelectedHouse(house)
+    } else {
+      console.warn('House not found for ID:', houseId, 'Available:', agents.map(a => a.id))
+      setSelectedHouse(null)
+    }
   }
 
   return (
@@ -332,10 +365,11 @@ export default function App() {
               {/* Bottom Row: Additional Monitoring */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <EnergyFlowMonitor energyFlows={energyFlows} agents={agents} />
-                <GlassCard>
-                  <h3 className="text-lg font-display font-semibold mb-4 gradient-text">Agent Status</h3>
-                  <SwarmMonitor agents={agents} />
-                </GlassCard>
+                <SwarmMonitor 
+                  agents={agents} 
+                  energyFlows={energyFlows}
+                  agentDecisions={agentDecisions}
+                />
                 <EnhancedForecast forecast={forecast} />
               </div>
             </motion.div>

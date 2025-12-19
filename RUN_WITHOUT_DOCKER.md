@@ -126,3 +126,5 @@ lsof -ti:3000 | xargs kill -9
 
 But for development, running locally is recommended! 🚀
 
+
+

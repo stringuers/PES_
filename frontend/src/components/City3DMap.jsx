@@ -66,8 +66,11 @@ function CityHouse({
       position={position}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
-      onClick={() => {
-        onClick && onClick(agent?.id)
+      onClick={(e) => {
+        e.stopPropagation()
+        if (onClick && agent) {
+          onClick(agent.id !== undefined ? agent.id : index)
+        }
         setShowDetails(!showDetails)
       }}
     >
@@ -353,6 +356,24 @@ export default function City3DMap({ agents, energyFlows, onHouseClick, selectedH
     }).filter(Boolean)
   }, [energyFlows, agents, positions])
 
+  // Show placeholder if no agents
+  if (!agents || agents.length === 0) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="w-full h-[700px] rounded-2xl overflow-hidden glass border border-white/20 relative flex items-center justify-center"
+      >
+        <div className="text-center z-10">
+          <div className="text-6xl mb-4">🏘️</div>
+          <div className="text-2xl font-bold text-white mb-2">No Simulation Running</div>
+          <div className="text-slate-400 mb-6">Start a simulation to see the community energy network</div>
+          <div className="text-sm text-slate-500">Click "Start Simulation" button to begin</div>
+        </div>
+      </motion.div>
+    )
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -395,17 +416,23 @@ export default function City3DMap({ agents, energyFlows, onHouseClick, selectedH
         <CityGround />
         
         {/* Houses */}
-        {positions.map((pos, idx) => (
-          <CityHouse
-            key={idx}
-            position={pos}
-            agent={agents.find(a => a.id === idx)}
-            index={idx}
-            onClick={onHouseClick}
-            isSelected={selectedHouseId === idx}
-            energyFlows={energyFlows}
-          />
-        ))}
+        {agents.map((agent, idx) => {
+          // Use agent's actual ID for position lookup, or use index as fallback
+          const agentIndex = agent?.id !== undefined ? agent.id : idx
+          const position = positions[agentIndex] || positions[idx] || [0, 0, 0]
+          
+          return (
+            <CityHouse
+              key={agent.id || idx}
+              position={position}
+              agent={agent}
+              index={idx}
+              onClick={onHouseClick}
+              isSelected={selectedHouseId === agent.id || selectedHouseId === agentIndex}
+              energyFlows={energyFlows}
+            />
+          )
+        })}
         
         {/* Energy Flow Lines */}
         {flowLines.map((flow) => (

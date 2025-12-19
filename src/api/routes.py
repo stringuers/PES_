@@ -3,7 +3,7 @@ API Routes
 All REST endpoints for the Solar Swarm Intelligence system
 """
 
-from fastapi import APIRouter, HTTPException, BackgroundTasks
+from fastapi import APIRouter, HTTPException, BackgroundTasks, Query, Response
 from typing import List, Optional
 from datetime import datetime
 import asyncio
@@ -14,7 +14,10 @@ from .schemas import (
     AgentInfo,
     CommunityMetrics,
     ScenarioRequest,
-    ForecastResponse
+    ForecastResponse,
+    IoTDataRequest,
+    IoTDataResponse,
+    IoTCommandResponse
 )
 from ..agents.base_agent import SwarmSimulator
 from ..agents.rl_hybrid_agent import HybridRLAgent
@@ -31,6 +34,9 @@ current_simulation = None
 simulation_running = False
 historical_storage = HistoricalStorage()
 step_results_history = []  # Store step results for historical storage
+
+# IoT device command store (in-memory, use Redis/DB in production)
+device_commands = {}
 
 @router.get("/simulation/status", response_model=SimulationStatus)
 async def get_simulation_status():
@@ -57,7 +63,7 @@ async def get_simulation_status():
 @router.post("/simulation/start")
 async def start_simulation(request: SimulationStartRequest, background_tasks: BackgroundTasks):
     """Start a new simulation"""
-    global current_simulation, simulation_running
+    global current_simulation, simulation_running, step_results_history
     
     if simulation_running:
         raise HTTPException(status_code=400, detail="Simulation already running")
@@ -82,13 +88,39 @@ async def start_simulation(request: SimulationStartRequest, background_tasks: Ba
     simulation_running = True
     step_results_history = []  # Reset history
     
+    # Initialize simulation with first timestep so agents are available immediately
+    try:
+        current_simulation.run_timestep(0)
+        current_simulation.time_step = 0
+        logger.info(f"Simulation initialized with {len(current_simulation.agents)} agents")
+    except Exception as e:
+        logger.error(f"Error initializing simulation: {e}")
+    
     # Run simulation in background
     background_tasks.add_task(run_simulation_background, request.hours)
+    
+    # Return agents info immediately so frontend can show them right away
+    agents_info = []
+    try:
+        for agent in current_simulation.agents:
+            agents_info.append({
+                "id": agent.id,
+                "battery_level": agent.battery_level,
+                "battery_capacity": agent.battery_capacity,
+                "production": agent.production,
+                "consumption": agent.consumption,
+                "status": "surplus" if agent.production > agent.consumption else ("balanced" if abs(agent.production - agent.consumption) < 0.1 else "deficit"),
+                "neighbors": [n.id for n in agent.neighbors] if hasattr(agent, 'neighbors') else []
+            })
+    except Exception as e:
+        logger.error(f"Error preparing agents info: {e}")
     
     return {
         "message": "Simulation started",
         "num_agents": request.num_agents,
-        "hours": request.hours
+        "hours": request.hours,
+        "status": "running",
+        "agents": agents_info  # Include agents in response
     }
 
 async def run_simulation_background(hours: int):
@@ -98,7 +130,8 @@ async def run_simulation_background(hours: int):
     import asyncio
     
     try:
-        for hour in range(hours):
+        # Start from hour 1 since hour 0 was already initialized in start_simulation
+        for hour in range(1, hours):
             if not simulation_running:
                 logger.info("Simulation stopped by user")
                 break
@@ -202,7 +235,7 @@ async def run_simulation_background(hours: int):
         logger.error(f"Simulation error: {e}", exc_info=True)
     finally:
         simulation_running = False
-        step_results_history = []
+        # Note: Don't clear step_results_history here as it's used for historical storage
 
 @router.post("/simulation/stop")
 async def stop_simulation():
@@ -644,3 +677,236 @@ async def get_analytics_trends():
         "cost_savings_trend": 5.2,
         "co2_reduction_trend": 3.1
     }
+
+# ============================================================================
+# IoT Endpoints for ESP32 Prototype
+# ============================================================================
+
+def make_iot_decision(current_production, forecasted_production, battery_level, voltage, has_anomaly):
+    """
+    AI-based decision making for IoT device control
+    
+    Priority logic:
+    1. Emergency: Battery low + no production → Disable load
+    2. High production + battery not full → Charge battery
+    3. High production + battery full → Export to grid
+    4. Low production + battery available → Use battery for load
+    """
+    
+    # Emergency: Battery critically low
+    if battery_level < 20 and current_production < 0.1:
+        return {
+            'action': 'disable_load',
+            'amount': 0.0,
+            'priority': 'critical',
+            'reason': 'Battery critically low, preserving energy'
+        }
+    
+    # Emergency: Anomaly detected
+    if has_anomaly:
+        return {
+            'action': 'stop_battery',
+            'amount': 0.0,
+            'priority': 'high',
+            'reason': 'Anomaly detected, stopping battery operations'
+        }
+    
+    # High production scenarios
+    if current_production > 0.5:  # > 500W production
+        if battery_level < 80:
+            # Charge battery
+            charge_rate = min(current_production * 0.8, 2.0)  # Max 2kW charging
+            return {
+                'action': 'charge_battery',
+                'amount': charge_rate,
+                'priority': 'high',
+                'reason': f'High production ({current_production:.2f}kW), charging battery'
+            }
+        elif battery_level >= 80:
+            # Battery full, export to grid
+            return {
+                'action': 'export_to_grid',
+                'amount': current_production * 0.9,
+                'priority': 'medium',
+                'reason': 'Battery full, exporting excess to grid'
+            }
+    
+    # Low production scenarios
+    elif current_production < 0.2:  # < 200W production
+        if battery_level > 30:
+            # Use battery for load
+            return {
+                'action': 'discharge_battery',
+                'amount': min(1.0, battery_level / 10),  # Discharge rate
+                'priority': 'medium',
+                'reason': 'Low production, using battery for load'
+            }
+        else:
+            # Battery low, disable load
+            return {
+                'action': 'disable_load',
+                'amount': 0.0,
+                'priority': 'high',
+                'reason': 'Low production and low battery, disabling load'
+            }
+    
+    # Normal operation: Enable load, stop battery operations
+    return {
+        'action': 'enable_load',
+        'amount': 0.0,
+        'priority': 'normal',
+        'reason': 'Normal operation, load enabled'
+    }
+
+
+@router.post("/iot/data", response_model=IoTDataResponse)
+async def receive_iot_data(data: dict):
+    """
+    Receive sensor data from ESP32 and return AI-based decision
+    
+    Expected payload:
+    {
+        "device_id": "esp32_sensor_01",
+        "sensor_data": {
+            "voltage_v": 12.5,
+            "current_a": 0.5,
+            "power_w": 6.25,
+            "temperature_c": 28.5,
+            "battery_level_pct": 50.0,
+            "timestamp": "2024-01-01T12:00:00"
+        },
+        "timestamp": "2024-01-01T12:00:00"
+    }
+    
+    Returns:
+    {
+        "status": "received",
+        "power_kw": 0.00625,
+        "anomalies_detected": 0,
+        "forecast_next_hour": 0.007,
+        "command": {
+            "action": "charge_battery",
+            "amount": 2.5,
+            "priority": "high",
+            "reason": "..."
+        }
+    }
+    """
+    from datetime import datetime
+    
+    device_id = data.get('device_id', 'unknown')
+    sensor_data = data.get('sensor_data', {})
+    
+    # Extract sensor values
+    voltage = sensor_data.get('voltage_v', 0.0)
+    current = sensor_data.get('current_a', 0.0)
+    power_w = sensor_data.get('power_w', 0.0)
+    power_kw = power_w / 1000.0
+    temperature = sensor_data.get('temperature_c', 25.0)
+    battery_level = sensor_data.get('battery_level_pct', 50.0)
+    
+    logger.info(f"📡 IoT data from {device_id}: {power_w:.2f}W ({power_kw:.3f}kW) @ {voltage:.2f}V, Battery: {battery_level:.1f}%")
+    
+    # ============ AI DECISION MAKING ============
+    
+    # 1. Anomaly Detection
+    try:
+        anomaly_service = get_anomaly_service()
+        anomaly_data = [{
+            'agent_id': device_id,
+            'production': power_kw,
+            'consumption': 0.0,  # Could add consumption sensor later
+            'battery_level': battery_level,
+            'net_energy': power_kw,
+            'hour': datetime.now().hour
+        }]
+        anomalies = anomaly_service.detect_anomalies(anomaly_data)
+        has_anomaly = len(anomalies) > 0 if anomalies else False
+    except Exception as e:
+        logger.warning(f"Anomaly detection failed: {e}")
+        anomalies = []
+        has_anomaly = False
+    
+    # 2. Forecasting (predict next hour production)
+    try:
+        forecasting_service = get_forecasting_service()
+        historical_data = [{
+            'hour': datetime.now().hour,
+            'production': power_kw,
+            'consumption': 0.0,
+            'battery_pct': battery_level / 100.0
+        }]
+        forecast = forecasting_service.predict_24h(historical_data=historical_data)
+        next_hour_production = forecast[0]['predicted_kwh'] if forecast and len(forecast) > 0 else power_kw
+    except Exception as e:
+        logger.warning(f"Forecasting failed: {e}, using current production as forecast")
+        next_hour_production = power_kw
+    
+    # 3. Rule-based Decision Making (similar to agent.make_decision())
+    decision = make_iot_decision(
+        current_production=power_kw,
+        forecasted_production=next_hour_production,
+        battery_level=battery_level,
+        voltage=voltage,
+        has_anomaly=has_anomaly
+    )
+    
+    # Store command for device to retrieve
+    device_commands[device_id] = {
+        'command': decision,
+        'status': 'pending',
+        'timestamp': datetime.now().isoformat()
+    }
+    
+    logger.info(f"🎯 Decision for {device_id}: {decision['action']} (amount: {decision.get('amount', 0)}) - {decision['reason']}")
+    
+    return IoTDataResponse(
+        status="received",
+        power_kw=power_kw,
+        anomalies_detected=len(anomalies),
+        forecast_next_hour=next_hour_production,
+        command=decision,
+        timestamp=datetime.now().isoformat()
+    )
+
+
+@router.get("/iot/command")
+async def get_iot_command(device_id: str = Query(..., description="Device identifier")):
+    """
+    ESP32 polls this endpoint to get pending commands
+    
+    Returns:
+    - 200 with command if available
+    - 204 No Content if no command pending
+    """
+    if device_id in device_commands:
+        command_data = device_commands[device_id]
+        if command_data['status'] == 'pending':
+            return IoTCommandResponse(
+                command=command_data['command'],
+                timestamp=command_data['timestamp']
+            )
+    
+    # No command available - return 204 No Content
+    return Response(status_code=204)
+
+
+@router.post("/iot/command/confirm")
+async def confirm_command_execution(data: dict):
+    """
+    ESP32 confirms command execution
+    
+    Payload: {
+        "device_id": "esp32_sensor_01",
+        "command": "charge_battery",
+        "executed": true
+    }
+    """
+    device_id = data.get('device_id')
+    command = data.get('command')
+    
+    if device_id in device_commands:
+        device_commands[device_id]['status'] = 'executed'
+        logger.info(f"✅ Command '{command}' executed by {device_id}")
+    
+    return {"status": "confirmed", "device_id": device_id, "command": command}
