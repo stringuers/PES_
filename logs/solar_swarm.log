@@ -786,3 +786,22 @@ ModuleNotFoundError: No module named 'fastapi'
 2025-12-19 20:31:29 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
 2025-12-19 20:31:29 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
 2025-12-19 20:31:29 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 20:40:00 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 20:40:01 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 20:40:01 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 20:40:01 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 21:05:13 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 21:05:13 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 21:05:13 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 21:05:13 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 21:05:26 - solar_swarm - INFO - routes.py:373 - Running scenario: cloudy_day
+2025-12-19 21:05:42 - solar_swarm - INFO - routes.py:71 - Starting simulation with 50 agents for 24 hours
+2025-12-19 21:05:42 - solar_swarm - INFO - routes.py:95 - Simulation initialized with 50 agents
+2025-12-19 21:06:20 - solar_swarm - INFO - routes.py:249 - Simulation stopped by user
+2025-12-19 21:06:20 - solar_swarm - INFO - routes.py:136 - Simulation stopped by user
+2025-12-19 21:06:20 - solar_swarm - INFO - routes.py:219 - Simulation completed: 24 hours
+2025-12-19 21:06:20 - solar_swarm - INFO - routes.py:230 - ✅ Simulation saved to history (ID: 4)
+2025-12-19 21:07:15 - solar_swarm - INFO - routes.py:71 - Starting simulation with 50 agents for 24 hours
+2025-12-19 21:07:15 - solar_swarm - INFO - routes.py:95 - Simulation initialized with 50 agents
+2025-12-19 21:08:01 - solar_swarm - INFO - routes.py:219 - Simulation completed: 24 hours
+2025-12-19 21:08:01 - solar_swarm - INFO - routes.py:230 - ✅ Simulation saved to history (ID: 5)
