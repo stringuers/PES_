@@ -741,3 +741,48 @@ ModuleNotFoundError: No module named 'gym'
 2025-12-19 19:38:27 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
 2025-12-19 19:38:27 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 2
 2025-12-19 19:38:28 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 1
+2025-12-19 20:25:59 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-19 20:25:59 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-19 20:25:59 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-19 20:25:59 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-19 20:25:59 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-19 20:25:59 - solar_swarm - ERROR - main.py:247 - ❌ Error: No module named 'fastapi'
+Traceback (most recent call last):
+  File "/Users/kilanimoemen/Desktop/PES/main.py", line 242, in <module>
+    main()
+  File "/Users/kilanimoemen/Desktop/PES/main.py", line 64, in main
+    from src.api.main import app
+  File "/Users/kilanimoemen/Desktop/PES/src/api/__init__.py", line 6, in <module>
+    from .main import app
+  File "/Users/kilanimoemen/Desktop/PES/src/api/main.py", line 6, in <module>
+    from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+ModuleNotFoundError: No module named 'fastapi'
+2025-12-19 20:28:13 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-19 20:28:13 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-19 20:28:13 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-19 20:28:13 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-19 20:28:13 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-19 20:28:13 - solar_swarm - ERROR - main.py:247 - ❌ Error: No module named 'fastapi'
+Traceback (most recent call last):
+  File "/Users/kilanimoemen/Desktop/PES/main.py", line 242, in <module>
+    main()
+  File "/Users/kilanimoemen/Desktop/PES/main.py", line 64, in main
+    from src.api.main import app
+  File "/Users/kilanimoemen/Desktop/PES/src/api/__init__.py", line 6, in <module>
+    from .main import app
+  File "/Users/kilanimoemen/Desktop/PES/src/api/main.py", line 6, in <module>
+    from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+ModuleNotFoundError: No module named 'fastapi'
+2025-12-19 20:30:14 - solar_swarm - INFO - main.py:55 - ============================================================
+2025-12-19 20:30:14 - solar_swarm - INFO - main.py:56 - 🌞 SOLAR SWARM INTELLIGENCE
+2025-12-19 20:30:14 - solar_swarm - INFO - main.py:57 -    IEEE PES Energy Utopia Challenge
+2025-12-19 20:30:14 - solar_swarm - INFO - main.py:58 - ============================================================
+2025-12-19 20:30:14 - solar_swarm - INFO - main.py:62 - 🚀 Starting API server...
+2025-12-19 20:30:51 - solar_swarm - INFO - main.py:24 - 🚀 Starting Solar Swarm Intelligence API
+2025-12-19 20:30:51 - solar_swarm - INFO - main.py:25 -    Agents: 50
+2025-12-19 20:30:51 - solar_swarm - INFO - main.py:26 -    Battery: 10.0 kWh
+2025-12-19 20:30:51 - solar_swarm - INFO - main.py:29 - 🛑 Shutting down API
+2025-12-19 19:44:25 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 20:31:29 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
+2025-12-19 20:31:29 - solar_swarm - INFO - main.py:87 - WebSocket client disconnected. Remaining: 0
+2025-12-19 20:31:29 - solar_swarm - INFO - main.py:74 - WebSocket client connected. Total: 1
